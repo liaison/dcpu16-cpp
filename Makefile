@@ -8,7 +8,7 @@ CC=g++
 CFLAGS=-Wall -g
 
 SOURCES=$(shell ls *.cpp)
-TARGETS=dcpu16
+TARGETS=dcpu16 asmdc
 
 
 # Replace the postfix of sources
@@ -23,8 +23,10 @@ all: $(TARGETS)
 #%.c: 
 #	gcc -o $* $*.c 
 
-
 dcpu16: emulator.cpp
+	$(CC) $(CFLAGS) $^ -o $@
+
+asmdc: assembler.cpp
 	$(CC) $(CFLAGS) $^ -o $@
 
 
