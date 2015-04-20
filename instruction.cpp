@@ -28,19 +28,10 @@
 
 /* DCPU-16 Spec is Copyright 2012 Mojang */
 
-/* A DCPU-16 Emulator */
-
-#include <iostream>
-
 #include "instruction.h"
 
-using namespace std;
+Instruction::Instruction(){
 
-int main(int argc, char * argv[]) 
-{
-    Instruction istr;
-
-	cout << "This is an emulator" << endl;
 }
 
 

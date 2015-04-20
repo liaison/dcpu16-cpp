@@ -28,20 +28,33 @@
 
 /* DCPU-16 Spec is Copyright 2012 Mojang */
 
-/* A DCPU-16 Emulator */
+/** This class represents an instruction in DCPU-16 architecture.
+  - An instruction in DCPU-16 is 1-3 words long and is fully defined
+    by its first word.
+    
+  - For a BASIC instruction, the lower 5 bits of the first word in the
+    instruction is the opcode O, and the remaining 11 bits are splitted
+    into a 5-bits value B and a 6-bits value A.
+  
+  - B is always handled by the processor after A, which is at the lower bits.
+ 
+  - The format of a basic instruction looks like:  AAAAAABBBBBOOOOO
+*/
 
-#include <iostream>
 
-#include "instruction.h"
+class Instruction {
 
-using namespace std;
+public:
+    Instruction();
 
-int main(int argc, char * argv[]) 
-{
-    Instruction istr;
+private:
+    int opcode;
+    
+};
 
-	cout << "This is an emulator" << endl;
-}
+
+
+
 
 
 

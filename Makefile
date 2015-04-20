@@ -5,29 +5,33 @@
 # ============================================================================ #
 
 CC=g++
-CFLAGS=-Wall -g
+CFLAGS=-Wall -g -c
+LDFLAGS=
 
 SOURCES=$(shell ls *.cpp)
 TARGETS=dcpu16 asmdc
 
 
 # Replace the postfix of sources
-OBJECTS=$(SOURCES:.c=.o)
+OBJECTS=$(SOURCES:.cpp=.o)
 
 
 # Entrance rule
 all: $(TARGETS)
 
+# Compile the Emulator
+dcpu16: instruction.o dcpu.o emulator.o
+	$(CC) $(LDFLAGS) $^ -o $@
 
-# Wild card matching 
-#%.c: 
-#	gcc -o $* $*.c 
 
-dcpu16: emulator.cpp
-	$(CC) $(CFLAGS) $^ -o $@
+# Compile the Assembler
+asmdc: assembler.o
+	$(CC) $(LDFLAGS) $^ -o $@
 
-asmdc: assembler.cpp
-	$(CC) $(CFLAGS) $^ -o $@
+
+# Compile each source file
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
 
 
 # Clean the object files and targets
