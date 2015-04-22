@@ -5,11 +5,14 @@
 # ============================================================================ #
 
 CC=g++
-CFLAGS=-Wall -g -c
+CFLAGS=-Wall -g -c -I include
 LDFLAGS=
 
-SOURCES=$(shell ls *.cpp)
+OBJ_DIR=obj
+BIN_DIR=bin
+
 TARGETS=dcpu16 asmdc
+SOURCES=$(shell ls *.cpp)
 
 
 # Replace the postfix of sources
@@ -20,8 +23,8 @@ OBJECTS=$(SOURCES:.cpp=.o)
 all: $(TARGETS)
 
 # Compile the Emulator
-dcpu16: instruction.o dcpu.o emulator.o
-	$(CC) $(LDFLAGS) $^ -o $@
+dcpu16: dcpu16.o emulator.o instruction.o
+	$(CC) $(LDFLAGS) $(OBJ_DIR)/$(shell sed -e 's/ /$(OBJ_DIR)/g' $^) -o $(BIN_DIR)/$@
 
 
 # Compile the Assembler
@@ -31,12 +34,12 @@ asmdc: assembler.o
 
 # Compile each source file
 .cpp.o:
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $(OBJ_DIR)/$@
 
 
 # Clean the object files and targets
 clean:
-	rm -rf *.o $(TARGETS) *.dSYM
+	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/$(TARGETS) $(OBJ_DIR)/*.dSYM
 
 
 # Print the source code to screen
