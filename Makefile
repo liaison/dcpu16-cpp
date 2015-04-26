@@ -23,13 +23,13 @@ OBJECTS=$(SOURCES:.cpp=.o)
 all: $(TARGETS)
 
 # Compile the Emulator
-dcpu16: dcpu16.o emulator.o instruction.o
-	$(CC) $(LDFLAGS) $(OBJ_DIR)/$(shell sed -e 's/ /$(OBJ_DIR)/g' $^) -o $(BIN_DIR)/$@
+dcpu16: dcpu.o emulator.o instruction.o
+	$(CC) $(LDFLAGS) $(OBJ_DIR)/$(shell echo $^ | sed -e 's/ / $(OBJ_DIR)\//g') -o $(BIN_DIR)/$@
 
 
 # Compile the Assembler
 asmdc: assembler.o
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) $(LDFLAGS) $(OBJ_DIR)/$^ -o $(BIN_DIR)/$@
 
 
 # Compile each source file
