@@ -26,7 +26,12 @@
  *
  */
 
-/* DCPU-16 Spec is Copyright 2012 Mojang */
+/* DCPU-16 Spec is Copyright 2012 Mojang
+
+   The instruction is implemented, according to the reference:
+    https://raw.githubusercontent.com/gatesphere/
+        demi-16/master/docs/dcpu-specs/dcpu-1-7.txt
+*/
 
 /** This class represents the CPU unit in DCPU-16 architecture.
     - It contains 8 registers (A, B, C, X, Y, Z, I, J).
@@ -35,6 +40,7 @@
     - stack pointer (SP).
     - extra/excess (EX) flag, used as a carry bit for addition/subtraction.
     - interrupt address (IA).
+    - all the above registers are a word long (16-bits).
 */
 
 class DCPU {
@@ -43,7 +49,23 @@ public:
     DCPU();
 
 private:
+
+    /* A "short" integer (2 bytes) should be able to hold a word.
     
+    // common registers
+    short _RA;
+    short _RB;
+    short _RC;
+    short _RX;
+    short _RY;
+    short _RZ;
+    short _RI;
+    short _RJ;
+
+    // program counter
+    short _PC;
+
+    */
 };
 
 

@@ -28,14 +28,29 @@
 
 /* DCPU-16 Spec is Copyright 2012 Mojang */
 
+
 #include "instruction.h"
 
 Instruction::Instruction(){
 
 }
 
+void Instruction::setOpcode(char opcode, bool isSpecial) {
+    _opcode = opcode;
+    _isSpecial = isSpecial;
+}
 
+void Instruction::setOperandA(char oprA) {
+    _operandA = oprA;
+}
 
+void Instruction::setOperandB(char oprB) {
+    _operandB = oprB;
+}
+
+void Instruction::print() {
+    
+}
 
 
 

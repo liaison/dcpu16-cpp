@@ -38,24 +38,36 @@
   
   - B is always handled by the processor after A, which is at the lower bits.
  
-  - The format of a basic instruction looks like:  AAAAAABBBBBOOOOO
-*/
+  - The format of a basic instruction looks like:  AAAAAABBBBBOOOOO.
 
+  - Special instructions have low five bits unset, are constructed as
+    AAAAAAOOOOO00000: where AAAAAA is a 6-bits operand and OOOOO is the
+    5-bits opcode.
+*/
 
 class Instruction {
 
 public:
     Instruction();
 
-private:
-    int opcode;
+    void setOpcode(char opcode, bool isSpecial);
     
+    void setOperandA(char oprA);
+
+    void setOperandB(char oprB);
+
+
+    /* Print out the instruction in its mnemonic form. */
+    void print();
+
+private:
+    bool _isSpecial;
+
+    char _opcode;
+    char _operandA;
+    char _operandB;
+
 };
-
-
-
-
-
 
 
 

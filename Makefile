@@ -4,15 +4,16 @@
 # Makefile to compile an emulator, an assembler and a disassembler for DCPU-16
 # ============================================================================ #
 
-CC=g++
-CFLAGS=-Wall -g -c -I include
-LDFLAGS=
-
 OBJ_DIR=obj
 BIN_DIR=bin
+INCLUDE=include
 
 TARGETS=dcpu16 asmdc
 SOURCES=$(shell ls *.cpp)
+
+CC=g++
+CFLAGS=-Wall -g -c -I $(INCLUDE)
+LDFLAGS=
 
 
 # Replace the postfix of sources
@@ -39,7 +40,7 @@ asmdc: assembler.o
 
 # Clean the object files and targets
 clean:
-	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/$(TARGETS) $(OBJ_DIR)/*.dSYM
+	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/* $(OBJ_DIR)/*.dSYM
 
 
 # Print the source code to screen
