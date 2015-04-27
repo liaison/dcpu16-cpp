@@ -31,17 +31,62 @@
 /* A DCPU-16 Emulator */
 
 #include <iostream>
+#include <fstream>
+#include <cstring>
 
 #include "instruction.h"
+#include "dcpu.h"
 
 using namespace std;
+
+/**
+ *  Load a file that contains DCPU-16 binary instruction into the
+ *   memory of the DCPU16 virtual machine.
+ */
+bool load_binary(WORD * memory, string path) {
+
+    std::ifstream file;
+    file.open(path, ios::in); // open the 'binary' as text file.
+
+    if(! file.is_open()) {
+        std::cerr << "Cannot open the binary '" << path << "'" << std::endl;
+        return false;
+    }
+
+    std::cout << "Load the binary '" << path << "'..." << std::endl;
+
+    string line;
+    while(getline(file, line)) {
+        std::cout << line << std::endl;
+        memcpy(memory, line.c_str(), line.size());
+        memory += line.size();
+    }
+
+    file.close();
+    return true;
+}
 
 int main(int argc, char * argv[]) 
 {
     Instruction istr;
+    std::auto_ptr<DCPU> dcpu(new DCPU());
 
-	cout << "This is an emulator" << endl;
+    std::cout << "Start the DCPU16 virtual machine..." << std::endl;
+
+    WORD * buf = dcpu->allocate(1000);
+
+    load_binary(buf, argv[1]);
+
+    dcpu->dump(std::cout);
 }
+
+
+
+
+
+
+
+
 
 
 

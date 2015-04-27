@@ -8,7 +8,7 @@ OBJ_DIR=obj
 BIN_DIR=bin
 INCLUDE=include
 
-TARGETS=dcpu16 asmdc
+TARGETS=dcpu16vm asmdc
 SOURCES=$(shell ls *.cpp)
 
 CC=g++
@@ -24,7 +24,7 @@ OBJECTS=$(SOURCES:.cpp=.o)
 all: $(TARGETS)
 
 # Compile the Emulator
-dcpu16: dcpu.o emulator.o instruction.o
+dcpu16vm: dcpu.o emulator.o instruction.o
 	$(CC) $(LDFLAGS) $(OBJ_DIR)/$(shell echo $^ | sed -e 's/ / $(OBJ_DIR)\//g') -o $(BIN_DIR)/$@
 
 

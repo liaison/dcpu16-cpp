@@ -45,6 +45,9 @@
     5-bits opcode.
 */
 
+#ifndef __DCPU16_INSTRUCTION_h_
+#define __DCPU16_INSTRUCTION_h_
+
 class Instruction {
 
 public:
@@ -70,9 +73,7 @@ private:
 };
 
 
-
-
-
+#endif // __DCPU16_INSTRUCTION_h_
 
 
 

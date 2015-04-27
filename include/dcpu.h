@@ -43,15 +43,41 @@
     - all the above registers are a word long (16-bits).
 */
 
+#ifndef __DCPU16_DCPU_h_
+#define __DCPU16_DCPU_h_
+
+#define MEM_SIZE 10000      // size of memory
+
+/* A "short" integer (2 bytes) should be able to hold a word. */
+typedef short WORD;
+
+#include <cstddef>
+#include <ostream>
+
 class DCPU {
 
 public:
     DCPU();
 
-private:
+    /**
+     * \brief Allocate a block of memory.
+     * \return NULL if the request cannot be met.
+     */
+    WORD * allocate(WORD size);
 
-    /* A "short" integer (2 bytes) should be able to hold a word.
-    
+    /**
+     * \brief Dump the status of the CPU, including the register values
+     *   as well as the memory image.
+     */
+    void dump(std::ostream & os);
+
+private:
+    WORD _memory[MEM_SIZE];
+
+    // A pointer pointing to the beginning of the available memory.
+    WORD _mp;
+
+    /*
     // common registers
     short _RA;
     short _RB;
@@ -70,10 +96,6 @@ private:
 
 
 
-
-
-
-
-
+#endif // __DCPU16_DCPU_h_
 
 

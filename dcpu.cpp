@@ -29,9 +29,46 @@
 
 #include "dcpu.h"
 
-DCPU::DCPU() {
+DCPU::DCPU() : _mp(0) {
 
 }
+
+
+WORD * DCPU::allocate(WORD size) {
+    WORD * res = _memory + _mp;
+    _mp += size;
+
+    return res;
+}
+
+
+void DCPU::dump(std::ostream & os) {
+    os << "Memory Image:" << std::endl;
+    int LINE_LEN = 80;
+
+    WORD * cur = _memory;
+    while( cur < (_memory + _mp) ) {
+        os.write(reinterpret_cast<char*>(cur), LINE_LEN * 2);
+        os << std::endl;
+        cur += LINE_LEN;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
