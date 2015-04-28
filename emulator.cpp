@@ -78,6 +78,8 @@ int main(int argc, char * argv[])
     load_binary(buf, argv[1]);
 
     dcpu->dump(std::cout);
+
+    dcpu->run();
 }
 
 

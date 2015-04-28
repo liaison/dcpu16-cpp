@@ -52,7 +52,9 @@
 typedef short WORD;
 
 #include <cstddef>
-#include <ostream>
+#include <iostream>
+
+#include "instruction.h"
 
 class DCPU {
 
@@ -66,16 +68,36 @@ public:
     WORD * allocate(WORD size);
 
     /**
+     * Run the instructions that are loaded in the memory.
+     */
+    void run();
+
+    /**
      * \brief Dump the status of the CPU, including the register values
      *   as well as the memory image.
      */
     void dump(std::ostream & os);
 
+protected:
+
+    /**
+     *  Retrieve an instruction starting from the program counter.
+     */
+    Instruction nextInstruction();
+
+    /**
+     *  Retrieve the next WORD from the 'binary' in the memory.
+     */
+    WORD nextWord();
+
 private:
     WORD _memory[MEM_SIZE];
 
-    // A pointer pointing to the beginning of the available memory.
-    WORD _mp;
+    // An index pointing to the beginning of the available memory.
+    WORD _mi;
+
+    // A pointer pointing to the next WORD of instruction.
+    WORD * _mp;
 
     /*
     // common registers
@@ -88,10 +110,11 @@ private:
     short _RI;
     short _RJ;
 
+
     // program counter
     short _PC;
-
     */
+
 };
 
 

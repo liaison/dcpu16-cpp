@@ -28,17 +28,51 @@
 
 
 #include "dcpu.h"
+#include <sstream>
 
-DCPU::DCPU() : _mp(0) {
+
+DCPU::DCPU() : _mi(0), _mp(_memory) {
 
 }
 
 
 WORD * DCPU::allocate(WORD size) {
-    WORD * res = _memory + _mp;
-    _mp += size;
+    WORD * res = _memory + _mi;
+    _mi += size;
 
     return res;
+}
+
+
+void DCPU::run() {
+    // TODO    
+    nextInstruction();
+}
+
+
+WORD DCPU::nextWord() {
+    WORD res;
+
+    std::stringstream ss;
+    std::string hex_word(reinterpret_cast<char*>(_mp), 4);
+    ss << std::hex << hex_word;
+    ss >> res;
+
+    // move the pointer to the next word.
+    _mp += 1;
+
+    return res;
+}
+
+Instruction DCPU::nextInstruction() {
+    Instruction nextIstr;
+    
+    WORD word = nextWord();
+
+    std::bitset<16> bits(word);
+    std::cout << bits << std::endl;
+
+    return nextIstr;
 }
 
 
@@ -47,7 +81,7 @@ void DCPU::dump(std::ostream & os) {
     int LINE_LEN = 80;
 
     WORD * cur = _memory;
-    while( cur < (_memory + _mp) ) {
+    while( cur < (_memory + _mi) ) {
         os.write(reinterpret_cast<char*>(cur), LINE_LEN * 2);
         os << std::endl;
         cur += LINE_LEN;
