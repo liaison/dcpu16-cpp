@@ -48,9 +48,24 @@ void Instruction::setOperandB(char oprB) {
     _operandB = oprB;
 }
 
-void Instruction::print() {
-    
+void Instruction::print(std::ostream & os) {
+
+    /* Should convert the char to int, before pipeline to std::hex.
+        Otherwise, nothing would be shown. */
+
+    os << std::hex << int(_opcode)   << " ";
+    os << std::hex << int(_operandB) << ",";
+    os << std::hex << int(_operandA) << std::endl;
 }
+
+
+
+
+
+
+
+
+
 
 
 

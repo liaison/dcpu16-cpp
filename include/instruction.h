@@ -48,6 +48,8 @@
 #ifndef __DCPU16_INSTRUCTION_h_
 #define __DCPU16_INSTRUCTION_h_
 
+#include <iostream>
+
 class Instruction {
 
 public:
@@ -59,9 +61,8 @@ public:
 
     void setOperandB(char oprB);
 
-
     /* Print out the instruction in its mnemonic form. */
-    void print();
+    void print(std::ostream & os);
 
 private:
     bool _isSpecial;

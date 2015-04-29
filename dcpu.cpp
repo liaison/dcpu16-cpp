@@ -49,7 +49,9 @@ void DCPU::run() {
     nextInstruction();
 }
 
-
+/**
+ *  Read the code in hex into WORD.
+ */
 WORD DCPU::nextWord() {
     WORD res;
 
@@ -69,8 +71,26 @@ Instruction DCPU::nextInstruction() {
     
     WORD word = nextWord();
 
+    /*  print the instruction in bits.
     std::bitset<16> bits(word);
     std::cout << bits << std::endl;
+
+    std::cout << "word:" << std::hex << word << std::endl;
+    std::cout << "mask:" << std::bitset<16>(MASK_5_ONES) << std::endl;
+    */
+
+    WORD MASK_5_ONES = 0x1F;
+    char opcode = (word & MASK_5_ONES);
+    nextIstr.setOpcode(opcode, (opcode == 0 ? true:false));
+
+    char operandB = ((word >> 5) & MASK_5_ONES);
+    nextIstr.setOperandB(operandB);
+
+    WORD MASK_6_ONES = 0x003F;
+    char operandA = ((word >> 10) & MASK_6_ONES);
+    nextIstr.setOperandA(operandA);
+
+    nextIstr.print(std::cout);
 
     return nextIstr;
 }
