@@ -55,7 +55,7 @@ class Instruction {
 public:
     Instruction();
 
-    void setOpcode(char opcode, bool isSpecial);
+    void setOpcode(char opcode);
     
     void setOperandA(char oprA);
 

@@ -35,9 +35,9 @@ Instruction::Instruction(){
 
 }
 
-void Instruction::setOpcode(char opcode, bool isSpecial) {
+void Instruction::setOpcode(char opcode) {
     _opcode = opcode;
-    _isSpecial = isSpecial;
+    _isSpecial = (opcode == 0) ? true : false;
 }
 
 void Instruction::setOperandA(char oprA) {
@@ -56,6 +56,103 @@ void Instruction::print(std::ostream & os) {
     os << std::hex << int(_opcode)   << " ";
     os << std::hex << int(_operandB) << ",";
     os << std::hex << int(_operandA) << std::endl;
+
+
+    std::string mnemonic;
+
+    if(! _isSpecial ) {
+        switch(_opcode) {
+            case 0x01:
+                mnemonic = "SET"; break;
+            case 0x02:
+                mnemonic = "ADD"; break;
+            case 0x03:
+                mnemonic = "SUB"; break;
+            case 0x04:
+                mnemonic = "MUL"; break;
+            case 0x05:
+                mnemonic = "MLI"; break;
+            case 0x06:
+                mnemonic = "DIV"; break;
+            case 0x07:
+                mnemonic = "DVI"; break;
+            case 0x08:
+                mnemonic = "MOD"; break;
+            case 0x09:
+                mnemonic = "MDI"; break;
+            case 0x0a:
+                mnemonic = "AND"; break;
+            case 0x0b:
+                mnemonic = "BOR"; break;
+            case 0x0c:
+                mnemonic = "XOR"; break;
+            case 0x0d:
+                mnemonic = "SHR"; break;
+            case 0x0e:
+                mnemonic = "ASR"; break;
+            case 0x0f:
+                mnemonic = "SHL"; break;
+            case 0x10:
+                mnemonic = "IFB"; break;
+            case 0x11:
+                mnemonic = "IFC"; break;
+            case 0x12:
+                mnemonic = "IFE"; break;
+            case 0x13:
+                mnemonic = "IFN"; break;
+            case 0x14:
+                mnemonic = "IFG"; break;
+            case 0x15:
+                mnemonic = "IFA"; break;
+            case 0x16:
+                mnemonic = "IFL"; break;
+            case 0x17:
+                mnemonic = "IFU"; break;
+            // NOT DEFINED. 0x18, 0x19
+            case 0x1a:
+                mnemonic = "ADX"; break;
+            case 0x1b:
+                mnemonic = "SBX"; break;
+            // NOT DEFINED. 0x1c, 0x1d
+            case 0x1e:
+                mnemonic = "STI"; break;
+            case 0x1f:
+                mnemonic = "STD"; break;
+
+            default:   // # NOT DEFINED
+                mnemonic = "UNK"; break;
+        }
+    } else {
+        // AAAAAA_OOOOO_00000
+        switch(_operandB){
+            case 0x01:
+                mnemonic = "JSR"; break;
+            // NOT DEFINED. 0x02 ~ 0x07
+            case 0x08:
+                mnemonic = "INT"; break;
+            case 0x09:
+                mnemonic = "IAG"; break;
+            case 0x0a:
+                mnemonic = "IAS"; break;
+            case 0x0b:
+                mnemonic = "RFI"; break;
+            case 0x0c:
+                mnemonic = "IAQ"; break;
+            // NOT DEFINED: 0x0d ~ 0x0f
+            case 0x10:
+                mnemonic = "HWN"; break;
+            case 0x11:
+                mnemonic = "HWQ"; break;
+            case 0x12:
+                mnemonic = "HWI"; break;
+
+            default:   // # NOT DEFINED
+                mnemonic = "UNK"; break;
+        }
+    }
+
+    os << mnemonic << std::endl;
+
 }
 
 

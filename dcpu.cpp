@@ -81,7 +81,7 @@ Instruction DCPU::nextInstruction() {
 
     WORD MASK_5_ONES = 0x1F;
     char opcode = (word & MASK_5_ONES);
-    nextIstr.setOpcode(opcode, (opcode == 0 ? true:false));
+    nextIstr.setOpcode(opcode);
 
     char operandB = ((word >> 5) & MASK_5_ONES);
     nextIstr.setOperandB(operandB);
@@ -107,17 +107,6 @@ void DCPU::dump(std::ostream & os) {
         cur += LINE_LEN;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
